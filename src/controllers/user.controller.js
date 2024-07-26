@@ -108,8 +108,31 @@ const login = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   const { firstName, lastName, email } = req.body;
   try {
-    
-  } catch (error) {}
+    if (!firstName || !lastName || !email) {
+      throw new ApiError(400, "All fields are reuired");
+    }
+
+    const isEmailExist = await User.findOne({ email });
+    if (isEmailExist) {
+      throw new ApiError(400, "Email already registered");
+    }
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      {
+        firstName,
+        lastName,
+        email,
+      },
+      {
+        new: true,
+      }
+    ).select("-password -refreshToken");
+    return res
+      .status(200)
+      .json(new ApiResponse(200, updatedUser, "User details updated"));
+  } catch (error) {
+    next(error);
+  }
 };
 
 export { register, login, updateUser };

@@ -6,6 +6,6 @@ const userRouter = Router();
 
 userRouter.route("/").post(register);
 userRouter.route("/login").post(login);
-userRouter.route("/update").post(verifyJWT, updateUser);
+userRouter.route("/update").put(verifyJWT, updateUser);
 
 export default userRouter;
