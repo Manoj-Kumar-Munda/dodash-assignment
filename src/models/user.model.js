@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import { ACCESS_TOKEN, REFRESHTOKEN } from "../utils/constants.js";
-import jwt from "jsonwebtoken"
+import {
+  ACCESS_TOKEN_SECRET,
+  REFRESH_TOKEN_SECRET,
+} from "../utils/constants.js";
+import jwt from "jsonwebtoken";
 const userSchema = mongoose.Schema({
   firstName: {
     type: String,
@@ -45,7 +48,7 @@ userSchema.methods.generateAccessToken = function () {
       name: this.firstName,
       email: this.email,
     },
-    ACCESS_TOKEN,
+    ACCESS_TOKEN_SECRET,
     {
       expiresIn: "1d",
     }
@@ -57,7 +60,7 @@ userSchema.methods.generateRefreshToken = function () {
     {
       _id: this._id,
     },
-    REFRESHTOKEN,
+    REFRESH_TOKEN_SECRET,
     {
       expiresIn: "30d",
     }

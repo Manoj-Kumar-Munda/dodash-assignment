@@ -105,4 +105,11 @@ const login = async (req, res, next) => {
   }
 };
 
-export { register, login };
+const updateUser = async (req, res, next) => {
+  const { firstName, lastName, email } = req.body;
+  try {
+    
+  } catch (error) {}
+};
+
+export { register, login, updateUser };
