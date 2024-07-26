@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import { ACCESS_TOKEN, REFRESHTOKEN } from "../utils/constants.js";
+import jwt from "jsonwebtoken"
 const userSchema = mongoose.Schema({
   firstName: {
     type: String,
@@ -40,10 +42,10 @@ userSchema.methods.generateAccessToken = function () {
   return jwt.sign(
     {
       _id: this._id,
-      name: this.fullName,
+      name: this.firstName,
       email: this.email,
     },
-    "eyJhbGciOiJIUzM4NCJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcyMjAxMjA5MywiaWF0IjoxNzIyMDEyMDkzfQ._ftjCWQ9HS67RhQUXyrISRBp0_SCKIkBRwgCQWrn9AUpsAY_ab1NZghTQ9AqUNxJ",
+    ACCESS_TOKEN,
     {
       expiresIn: "1d",
     }
@@ -55,7 +57,7 @@ userSchema.methods.generateRefreshToken = function () {
     {
       _id: this._id,
     },
-    "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcyMjAxMjA5MywiaWF0IjoxNzIyMDEyMDkzfQ._N2DD4IfCzcMdjgHQMltpgsXDbgGm6EoOO_D6ypC11A",
+    REFRESHTOKEN,
     {
       expiresIn: "30d",
     }
