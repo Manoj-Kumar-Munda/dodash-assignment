@@ -9,23 +9,15 @@ const generateAccessAndRefreshToken = async (userId) => {
     const accessToken = user.generateAccessToken();
     const refreshToken = user.generateRefreshToken();
 
-    console.log(
-      "generated tokens: ",
-      accessToken,
-      " refreshToken:",
-      refreshToken
-    );
-
     user.refreshToken = refreshToken;
 
     await user.save({ validateBeforeSave: false });
 
     return { accessToken, refreshToken };
   } catch (error) {
-    console.log(error.message);
     throw new ApiError(
       500,
-      "Something went wrong while generating refresh and access token"
+      error?.message || "Something went wrong while generating refresh and access token"
     );
   }
 };
@@ -52,7 +44,6 @@ const register = async (req, res, next) => {
       email,
       password,
     });
-    console.log("created user: ", user);
 
     const newUser = await User.findById(user._id).select(
       "-password -refershToken"

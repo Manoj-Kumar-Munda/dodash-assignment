@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import { ACCESS_TOKEN_SECRET } from "../utils/constants.js";
 
 const verifyJWT = async (req, res, next) => {
-  console.log("Verifying Tokens");
   try {
     const token =
       req.cookies?.accessToken ||

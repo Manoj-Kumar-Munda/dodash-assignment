@@ -1,3 +1,4 @@
+//These variable should be stored in .env file
 export const ACCESS_TOKEN_SECRET =
   "eyJhbGciOiJIUzM4NCJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcyMjAxMjA5MywiaWF0IjoxNzIyMDEyMDkzfQ._ftjCWQ9HS67RhQUXyrISRBp0_SCKIkBRwgCQWrn9AUpsAY_ab1NZghTQ9AqUNxJ";
 
